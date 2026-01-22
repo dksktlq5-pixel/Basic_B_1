@@ -1,20 +1,11 @@
 #pragma once
-#include "Character.h"
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
-using namespace std;
+#include "ACharacter.h"
 
-class Monster : public Character
-{
+class Monster : public ACharacter {
 public:
-    Monster(string name, int playerLevel)
-    {
-        srand((unsigned int)time(0));
-        Name = name;
-        Hp = playerLevel * 20 + rand() % (playerLevel * 11);
-        Atk = playerLevel * 5 + rand() % (playerLevel * 6);
-
-        cout << "Monster 생성됨: " << Name << " (HP: " << Hp << ", ATK: " << Atk << ")\n";
+    Monster(string _Name, int _Hp, int _Atk, int _Def, float _Cri)
+        : ACharacter(_Name, _Hp, _Atk, _Def, _Cri) {
     }
+
+    // 몬스터만의 특별한 공격 방식 등을 오버라이딩 가능
 };
