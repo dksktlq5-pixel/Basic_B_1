@@ -48,14 +48,17 @@ void ACharacter::Attack(ACharacter* target)
 
 void ACharacter::TakeDamage(int DamageAmount)
 {
-    Hp -= DamageAmount;
+    int ActualDamage = DamageAmount - Def;
+
+    if (DamageAmount > 0 && ActualDamage < 0)
+        ActualDamage = 0;
+
+    Hp -= ActualDamage;
+
     if (Hp < 0) Hp = 0;
 
-    cout << Name << "가 " << DamageAmount << "의 피해를 입었습니다." << endl;
-    cout << "   -> 남은 체력: " << Hp << endl;
+    cout << Name << " HP: " << Hp << endl;
 
     if (IsDead())
-    {
         cout << Name << "이(가) 쓰러졌습니다!" << endl;
-    }
 }
