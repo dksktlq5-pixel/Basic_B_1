@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "ACharacter.h"
 #include <iostream>
 #include <string>
@@ -21,13 +21,13 @@ public:
         exp = 0;
         maxLevel = 10;
 
-        cout << "Player 생성됨: " << Name << " (HP: " << Hp << ", ATK: " << Atk << ")" << endl;
+        cout << "Player ěěąë¨: " << Name << " (HP: " << Hp << ", ATK: " << Atk << ")" << endl;
     }
 
     void GainExp(int amount)
     {
         exp += amount;
-        cout << Name << "이(가) 경험치 " << amount << " 획득! (총 EXP: " << exp << ")" << endl;
+        cout << Name << "ě´(ę°) ę˛˝íěš " << amount << " íë! (ě´ EXP: " << exp << ")" << endl;
 
         while (exp >= 100 && level < maxLevel)
         {
@@ -41,7 +41,7 @@ public:
         level++;
         Hp += level * 20;
         Atk += level * 5;
-        cout << "🎉 레벨업! " << Name << " Lv" << level << " (HP: " << Hp << ", ATK: " << Atk << ")" << endl;
+        cout << "đ ë ë˛¨ě! " << Name << " Lv" << level << " (HP: " << Hp << ", ATK: " << Atk << ")" << endl;
     }
 
     int GetLevel() { return level; }
