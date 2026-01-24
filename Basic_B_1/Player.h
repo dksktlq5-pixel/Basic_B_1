@@ -12,6 +12,8 @@ private:
     int maxLevel;
 
 public:
+    // 생성자 구현이 길면 c++로 빼두세요.
+    // 부모 클래스 생성자 호출(파라미터 있는 버전)이 누락되었습니다. 
     Player(string name)
     {
         Name = name;
