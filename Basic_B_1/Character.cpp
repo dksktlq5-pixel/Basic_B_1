@@ -9,7 +9,7 @@ ACharacter::ACharacter(string NewName, int NewHp, int NewAtk, int NewDef, int Ne
     Atk = NewAtk;
     Def = NewDef;
     
-    Critical = (int)NewCri; 
+    Critical = NewCri; 
 
     cout << "Character 생성됨: " << Name << " (HP: " << Hp << ", ATK: " << Atk << ")" << endl;
 }
