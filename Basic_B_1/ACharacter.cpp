@@ -2,14 +2,13 @@
 #include <random>
 #include <Windows.h> 
 
-ACharacter::ACharacter(string NewName, int NewHp, int NewAtk, int NewDef, float NewCri)
+ACharacter::ACharacter(string NewName, int NewHp, int NewAtk, int NewDef, int NewCri)
 {
     Name = NewName;
     Hp = NewHp;
     Atk = NewAtk;
     Def = NewDef;
     
-    //굳이 캐스팅할거라면 floatt으로 받은 이유는?
     Critical = (int)NewCri; 
 
     cout << "Character 생성됨: " << Name << " (HP: " << Hp << ", ATK: " << Atk << ")" << endl;
@@ -20,8 +19,7 @@ ACharacter::~ACharacter()
     cout << "Character 소멸됨: " << Name << endl;
 }
 
-//멤버 함수화 필요
-int getRandomInt()
+int ACharacter::GetRandomInt()
 {
     static random_device rd;
 
@@ -32,25 +30,23 @@ int getRandomInt()
     return dis(gen);
 }
 
-void ACharacter::Attack(ACharacter* target)
+void ACharacter::Attack(ACharacter* Target)
 {
-    //변수 대문자 코딩스타일
-    int damage = Atk;
+    int Damage = Atk;
 
-	int random = getRandomInt();
+	int Random = GetRandomInt();
 	
-    if (random <= Critical)
+    if (Random <= Critical)
     {
-        cout << Name << "이(가) 크리티컬 공격!" << damage << endl;
-        damage = Atk * 1.5;
-        //damage = (int)Atk * 1.5f;
+        cout << Name << "이(가) 크리티컬 공격!" << Damage << endl;
+        Damage = (int)Atk * 1.5f;
     }
     else
     {
-		cout << Name << "이(가) 일반 공격." << damage << endl;
+		cout << Name << "이(가) 일반 공격." << Damage << endl;
     }
     
-    target->TakeDamage(damage);
+    Target->TakeDamage(Damage);
 }
 
 void ACharacter::TakeDamage(int DamageAmount)
