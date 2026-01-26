@@ -1,67 +1,56 @@
-﻿#include "ACharacter.h"
+﻿#include "Character.h"
 #include <random>
 #include <Windows.h> 
 
-ACharacter::ACharacter(string NewName, int NewHp, int NewAtk, int NewDef, int NewCri)
+ACharacter::ACharacter(string NewName, const FUnitStat& NewStat)
 {
-    Name = NewName;
-    Hp = NewHp;
-    Atk = NewAtk;
-    Def = NewDef;
-    
-    Critical = NewCri; 
+	Name = NewName;
+	Stat = NewStat;
 
-    cout << "Character 생성됨: " << Name << " (HP: " << Hp << ", ATK: " << Atk << ")" << endl;
+	cout << "Character 생성됨: " << Name << " (HP: " << Stat.Hp << ", ATK: " << Stat.Atk << ")" << endl;
 }
 
 ACharacter::~ACharacter()
 {
-    cout << "Character 소멸됨: " << Name << endl;
+	cout << "Character 소멸됨: " << Name << endl;
 }
 
 int ACharacter::GetRandomInt()
 {
-    static random_device rd;
+	static random_device rd;
 
-    static mt19937 gen(rd());
+	static mt19937 gen(rd());
 
-    uniform_int_distribution<int> dis(0, 100);
+	uniform_int_distribution<int> dis(0, 100);
 
-    return dis(gen);
+	return dis(gen);
 }
 
 void ACharacter::Attack(ACharacter* Target)
 {
-    int Damage = Atk;
+	int Damage = Stat.Atk;
 
 	int Random = GetRandomInt();
-	
-    if (Random <= Critical)
-    {
-        cout << Name << "이(가) 크리티컬 공격!" << Damage << endl;
-        Damage = (int)Atk * 1.5f;
-    }
-    else
-    {
-		cout << Name << "이(가) 일반 공격." << Damage << endl;
-    }
-    
-    Target->TakeDamage(Damage);
+
+	if (Random <= Stat.Critical)
+	{
+		Damage = static_cast<int>(Damage * 1.5f);
+		cout << Name << "의 크리티컬 히트!" << endl;
+	}
+	cout << Name << "이(가) " << Target->Name << "에게 " << Damage << "의 피해를 입혔습니다." << endl;
+	Target->TakeDamage(Damage);
 }
 
 void ACharacter::TakeDamage(int DamageAmount)
 {
-    int ActualDamage = DamageAmount - Def;
+	int ActualDamage = DamageAmount - Stat.Def;
+	if (ActualDamage < 0)
+		ActualDamage = 0;
+	Stat.Hp -= ActualDamage;
+	cout << Name << " HP : " << Stat.Hp << endl;
 
-    if (DamageAmount > 0 && ActualDamage < 0)
-        ActualDamage = 0;
-
-    Hp -= ActualDamage;
-
-    if (Hp < 0) Hp = 0;
-
-    cout << Name << " HP: " << Hp << endl;
-
-    if (IsDead())
-        cout << Name << "이(가) 쓰러졌습니다!" << endl;
+	if (IsDead())
+	{
+		cout << Name << "이(가) 쓰러졌습니다!" << endl;
+	}
 }

@@ -1,40 +1,51 @@
 ﻿#include "Player.h"
 #include <iostream>
+
 using namespace std;
 
-Player::Player(string name)
-	: ACharacter(name, 200, 30, 0, 0) // 부모 클래스 생성자 호출
+Player::Player(string name, const FUnitStat& NewStat)
+    : ACharacter(name, NewStat)
 {
-	level = 1;
-	exp = 0;
-	maxLevel = 10;
-	cout << "Player 생성됨: " << Name << " (HP: " << Hp << ", ATK: " << Atk << ")" << endl;
+    level = 1;
+    exp = 0;
+    maxLevel = 10;
+
+    cout << "Player 생성됨: "
+        << Name << " (HP: " << Stat.Hp << ", ATK: " << Stat.Atk << ")" << endl;
 }
 
 void Player::GainExp(int amount)
 {
-	exp += amount;
-	cout << Name << "이(가) " << amount << " 경험치 획득! (현재 EXP: " << exp << ")" << endl;
-	while (exp >= 100 && level < maxLevel)
-	{
-		exp -= 100;
-		LevelUp();
-	}
+    exp += amount;
+    cout << Name << "이(가) "
+        << amount << " 경험치 획득! (현재 EXP: " << exp << ")" << endl;
+
+    while (exp >= 100 && level < maxLevel)
+    {
+        exp -= 100;
+        LevelUp();
+    }
 }
 
 void Player::LevelUp()
 {
-	level++;
-	Hp += level * 20;
-	Atk += level * 5;
-	cout << "레벨 업! " << Name << " Lv" << level << " (HP: " << Hp << ", ATK: " << Atk << ")" << endl;
+    level++;
+
+    Stat.Hp += level * 20;
+    Stat.Atk += level * 5;
+
+    cout << "레벨 업! "
+        << Name << " Lv" << level
+        << " (HP: " << Stat.Hp
+        << ", ATK: " << Stat.Atk << ")" << endl;
 }
 
-int Player::GetLevel() 
-{ 
-	return level; 
+int Player::GetLevel() const
+{
+    return level;
 }
-int Player::GetExp() 
-{ 
-	return exp; 
+
+int Player::GetExp() const
+{
+    return exp;
 }

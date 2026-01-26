@@ -3,29 +3,34 @@
 #include <string>
 using namespace std;
 
-class ACharacter
+struct FUnitStat
 {
-public:
-    string Name;
     int Hp;
     int Atk;
     int Def;
     int Critical;
+};
+
+class ACharacter
+{
+public:
+    string Name;
+    FUnitStat Stat;
 
 public:
-    ACharacter(string NewName = "Unknown", int NewHp = 100, int NewAtk = 10, int NewDef = 0, int NewCri = 0.0f);
+    ACharacter(string NewName, const FUnitStat& NewStat);
 
     ~ACharacter();
 
     void Attack(ACharacter* Target);
     void TakeDamage(int DamageAmount);
 
-    int GetHp() { return Hp; }
-    bool IsDead() { return Hp <= 0; }
-    int GetAtk() { return Atk; }
-    int GetDef() { return Def; }
-    float GetCritical() { return Critical; }
+    int GetHp() { return Stat.Hp; }
+    int GetAtk() { return Stat.Atk; }
+    int GetDef() { return Stat.Def; }
+    int GetCritical() { return Stat.Critical; }
     string GetName() { return Name; }
+    bool IsDead() { return Stat.Hp <= 0; }
 
 	int GetRandomInt();
 };
