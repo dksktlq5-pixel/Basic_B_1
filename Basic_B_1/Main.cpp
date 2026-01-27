@@ -1,5 +1,5 @@
-﻿#include "Player.h"
-#include "Monster.h"
+﻿#include "Character/Player.h"
+#include "Character/Monster.h"
 #include <clocale>
 #include <windows.h>
 

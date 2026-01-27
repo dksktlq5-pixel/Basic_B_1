@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 struct FUnitStat
@@ -14,23 +15,20 @@ struct FUnitStat
 class ACharacter
 {
 public:
+	ACharacter(const string& NewName, const FUnitStat& NewStat);
+	~ACharacter();
+	
+protected:
     string Name;
     FUnitStat Stat;
 
 public:
-    ACharacter(string NewName, const FUnitStat& NewStat);
-
-    ~ACharacter();
-
     void Attack(ACharacter* Target);
     void TakeDamage(int DamageAmount);
-
-    int GetHp() { return Stat.Hp; }
-    int GetAtk() { return Stat.Atk; }
-    int GetDef() { return Stat.Def; }
-    int GetCritical() { return Stat.Critical; }
-    string GetName() { return Name; }
+	
+    const string& GetName() { return Name; }
     bool IsDead() { return Stat.Hp <= 0; }
-
+	
+private:
 	int GetRandomInt();
 };
