@@ -22,10 +22,8 @@ void ACharacter::Attack(ACharacter* Target)
 	if (Random <= Stat.Critical)
 	{
 		Damage = static_cast<int>(Damage * 1.5f);
-		cout << Name << "의 크리티컬 히트!" << endl;
+		cout << Name << "의 치명타 공격!" << endl;
 	}
-	
-	cout << Name << "이(가) " << Target->Name << "에게 " << Damage << "의 피해를 입혔습니다." << endl;
 	Target->TakeDamage(Damage);
 }
 

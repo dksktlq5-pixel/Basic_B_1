@@ -14,6 +14,7 @@ public:
     void GainExp(int amount);
     void LevelUp();
     void UseItem();
+    void Attack(ACharacter* Target) override;
 
     int GetLevel() const { return Level; }
     int GetExp() const { return Exp; }

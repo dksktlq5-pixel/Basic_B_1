@@ -1,4 +1,5 @@
 ﻿#include "Player.h"
+#include "Character.h"
 #include <iostream>
 
 using namespace std;
@@ -48,4 +49,10 @@ void APlayer::LevelUp()
 void APlayer::UseItem()
 {
 
+}
+
+void APlayer::Attack(ACharacter* Target)
+{
+	cout << Name << "이(가) 무기로 공격합니다" << endl;
+	ACharacter::Attack(Target);
 }
