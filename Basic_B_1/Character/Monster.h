@@ -9,5 +9,5 @@ class AMonster : public ACharacter
 public:
     AMonster(const string& Name, const FUnitStat& NewStat);
 
-    void Attack(ACharacter* Target) override;
+    FDamageResult Attack(ACharacter* Target) override;
 };

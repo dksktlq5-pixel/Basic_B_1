@@ -7,9 +7,16 @@ AMonster::AMonster(const string& Name, const FUnitStat& NewStat)
 
 }
 
-void AMonster::Attack(ACharacter* Target)
+FDamageResult AMonster::Attack(ACharacter* Target)
 {
-	cout << "삭삭! " << Name << "이(가) 할큅니다!" << endl;
+	FDamageResult result = ACharacter::Attack(Target);
+	string AttackMessage = "이(가) 이빨로 물어뜯습니다!";
+	if (result.bCritical)
+	{
+		AttackMessage = "이(가) 약점 부위를 공격합니다!";
+	}
 
-	ACharacter::Attack(Target);
+	cout << "삭삭! " << Name << AttackMessage <<  "데미지: " << result.Damage << endl;
+	cout << Target->GetName() << "Hp: " << Target->GetHp() << endl;
+	return result;
 }
