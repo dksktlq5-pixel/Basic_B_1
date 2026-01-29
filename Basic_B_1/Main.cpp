@@ -7,11 +7,8 @@ int main()
 {
     std::setlocale(LC_ALL, "Korean");
 
-    FUnitStat PlayerStat = { 250, 40, 5, 20 }; 
-    FUnitStat MonsterStat = { 200, 30, 3, 10 }; 
-
-    ACharacter* Player = new APlayer("용사", PlayerStat);
-	ACharacter* Monster = new AMonster("오크", MonsterStat);
+    ACharacter* Player = new APlayer("용사", FUnitStat(200, 50, 30, 5, 10));
+    ACharacter* Monster = new AMonster("오크", FUnitStat(100, 30, 20 , 3, 10));
 
     cout << "===  데스매치 시작!  ===" << endl;
     Sleep(1000);

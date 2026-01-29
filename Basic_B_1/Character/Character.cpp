@@ -2,10 +2,13 @@
 #include <random>
 
 
-ACharacter::ACharacter(const string& NewName, const FUnitStat& NewStat)
+ACharacter::ACharacter(const string& NewName, const FUnitStat& UnitStat)
 {
 	Name = NewName;
-	Stat = NewStat;
+	Stat = UnitStat;
+
+	Stat.Hp = Stat.MaxHp;
+	Stat.Mp = Stat.MaxMp;
 
 	cout << "Character 생성됨: " << Name << " (HP: " << Stat.Hp << ", ATK: " << Stat.Atk << ")" << endl;
 }
