@@ -10,8 +10,8 @@ int main()
     FUnitStat PlayerStat = { 250, 40, 5, 20 }; 
     FUnitStat MonsterStat = { 200, 30, 3, 10 }; 
 
-    ACharacter* Player = new ACharacter("용사", PlayerStat);
-	ACharacter* Monster = new ACharacter("오크", MonsterStat);
+    ACharacter* Player = new APlayer("용사", PlayerStat);
+	ACharacter* Monster = new AMonster("오크", MonsterStat);
 
     cout << "===  데스매치 시작!  ===" << endl;
     Sleep(1000);
