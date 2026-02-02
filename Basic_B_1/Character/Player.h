@@ -16,6 +16,8 @@ public:
     void UseItem();
     FDamageResult Attack(ACharacter* Target) override;
 
+    virtual void UseSkill(ACharacter* Target) override;
+
     int GetLevel() const { return Level; }
     int GetExp() const { return Exp; }
 };

@@ -10,4 +10,5 @@ public:
     AMonster(const string& Name, const FUnitStat& NewStat);
 
     FDamageResult Attack(ACharacter* Target) override;
+    virtual void UseSkill(ACharacter* Target) override;
 };

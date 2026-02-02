@@ -54,13 +54,37 @@ void APlayer::UseItem()
 FDamageResult APlayer::Attack(ACharacter* Target)
 {
 	FDamageResult result = ACharacter::Attack(Target);
+
 	string AttackMessage = "이(가) 대검으로 내려칩니다!";
 	if (result.bCritical)
 	{
 		AttackMessage = "이(가) 치명타 공격합니다!";
 	}
 
-	cout << "푸직! " << Name << AttackMessage << "데미지: " << result.Damage << endl;
-	cout << Target->GetName() << "Hp: " << Target->GetHp() << endl;
+	result.PrintMessage(AttackMessage);
 	return result;
 }
+
+void APlayer::UseSkill(ACharacter* Target)
+{
+	if (Stat.Mp < 0)
+	{
+		cout << "Mp가 부족합니다." << endl;
+		return;
+	}
+
+	Stat.Mp -= 10; //mp 10 소모
+	int Damage = Stat.Atk * 2;
+	int FinalDamage = Target->TakeDamage(Damage);
+
+	FDamageResult result;
+	result.Attacker = this;
+	result.Target = Target;
+	result.Damage = FinalDamage;
+	result.bCritical = false;
+
+	string SkillMassage = "이(가) 엄청난 힘을 사용했다!";
+	result.PrintMessage(SkillMassage);
+}
+
+//테이크데미지에서 받아와서 데미지 리절트 세팅해서 메시지 출력

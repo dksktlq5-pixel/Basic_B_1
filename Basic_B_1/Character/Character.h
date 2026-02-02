@@ -29,11 +29,18 @@ struct FUnitStat
 	}
 };
 
+class ACharacter;
+
 //데이터 덩어리
 struct FDamageResult
 {
+	//공격자와 대상 포인터를 추가.
+	ACharacter* Attacker;
+	ACharacter* Target;
+
 	int Damage;
 	bool bCritical;
+	void PrintMessage(const string& AttackMessage);
 };
 
 class ACharacter
@@ -53,6 +60,12 @@ public:
 
 	const string& GetName() { return Name; }
 	bool IsDead() { return Stat.Hp <= 0; }
+
+	virtual void UseSkill(ACharacter* Target) = 0;
+
+	void PrintName();
+
+	void Heal(int amount);
 
 private:
 	int GetRandomInt();
