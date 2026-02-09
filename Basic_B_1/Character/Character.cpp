@@ -81,3 +81,26 @@ void ACharacter::Heal(int amount)
 	PrintName();
 	cout << ActualHeal << "Hp를 회복했습니다...!" << endl;
 }
+
+void ACharacter::PlayTurn(ACharacter* Target)
+{
+	const int AttackRate = 70;
+	const int SkillMp = 10;
+
+	int Dice = GetRandomInt();
+
+	if (Dice < AttackRate)
+	{
+		Attack(Target);
+		return;
+	}
+
+	if (Stat.Mp < SkillMp)
+	{
+		cout << "마나가 부족합니다! 기본 공격을 합니다." << endl;
+		Attack(Target);
+		return;
+	}
+
+	UseSkill(Target);
+}

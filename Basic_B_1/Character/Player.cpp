@@ -73,7 +73,11 @@ void APlayer::UseSkill(ACharacter* Target)
 		return;
 	}
 
-	Stat.Mp -= 10; //mp 10 소모
+	Stat.Mp -= 10; 
+
+	PrintName();
+	cout << "남은 MP: " << Stat.Mp << endl;
+
 	int Damage = Stat.Atk * 2;
 	int FinalDamage = Target->TakeDamage(Damage);
 
@@ -87,4 +91,3 @@ void APlayer::UseSkill(ACharacter* Target)
 	result.PrintMessage(SkillMassage);
 }
 
-//테이크데미지에서 받아와서 데미지 리절트 세팅해서 메시지 출력
