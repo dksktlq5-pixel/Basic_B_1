@@ -6,42 +6,59 @@
 
 using namespace std;
 
-void WaitForPlayerInput()
+class BattleManager
 {
-    system("pause");
-    cout << endl;
-}
+public:
+    void WaitForPlayerInput()
+    {
+        system("pause");
+        cout << endl;
+    }
+
+    bool BattleTurn(ACharacter* Attacker, ACharacter* Defender)
+    {
+        Attacker->PlayTurn(Defender);
+		Attacker->ShowStat(), Defender->ShowStat();
+        WaitForPlayerInput();
+
+        if (Defender->IsDead())
+        {
+            cout << Defender->GetName() << "(이)가 쓰러졌습니다!" << endl;
+            return true;
+        }
+        return false;
+    }
+
+    void RunBattle(ACharacter* Player, ACharacter* Monster)
+    {
+        cout << "===  데스매치 시작!  ===" << endl;
+        Sleep(1000);
+
+        while (true)
+        {
+            if (BattleTurn(Player, Monster)) break;
+            if (BattleTurn(Monster, Player)) break;
+        }
+
+        cout << "===  전투 종료  ===" << endl;
+    }
+};
 
 int main()
 {
-   setlocale(LC_ALL, "Korean");
-   ACharacter* Player = new APlayer("용사",FUnitStat(140, 15, 28, 4, 15));
-   ACharacter* Monster = new AMonster("오크",FUnitStat(120, 20, 26, 3, 10));
+    setlocale(LC_ALL, "Korean");
 
-    cout << "===  데스매치 시작!  ===" << endl;
-    Sleep(1000);
+    ACharacter* Player = new APlayer("용사", FUnitStat(200, 50, 30, 5, 10));
+    ACharacter* Monster = new AMonster("몬스터", FUnitStat(100, 30, 20, 3, 10));
 
-    while (!Player->IsDead() && !Monster->IsDead())
-    {
-        Player->PlayTurn(Monster);
-        if (Monster->IsDead())
-        {
-            cout << "몬스터가 쓰러졌습니다! 승리!" << endl;
-            break;
-        }
-        WaitForPlayerInput();
-
-        Monster->PlayTurn(Player);
-        if (Player->IsDead())
-        {
-            cout << "플레이어가 쓰러졌습니다... 패배..." << endl;
-            break;
-        }
-        WaitForPlayerInput();
-
-    }
+    BattleManager* Manager = new BattleManager();
+    Manager->RunBattle(Player, Monster);
 
     delete Player;
     delete Monster;
+
+	Manager->WaitForPlayerInput();
+    delete Manager;
+
     return 0;
 }

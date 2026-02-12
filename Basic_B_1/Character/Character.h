@@ -66,6 +66,7 @@ public:
 	void Heal(int amount);
 	void PlayTurn(ACharacter* Target);
 
+	void ShowStat();
 private:
 	int GetRandomInt();
 };
