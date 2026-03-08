@@ -1,7 +1,8 @@
-﻿#pragma once
-#include <iostream>
+#pragma once
+
 #include <string>
 
+class ACharacter;
 using namespace std;
 
 struct FUnitStat
@@ -11,62 +12,63 @@ struct FUnitStat
 	int Atk;
 	int Def;
 	int Critical;
-
+	
 	int Hp = 0;
 	int Mp = 0;
 	
 	FUnitStat()
 	{
 	}
-
+	
 	FUnitStat(int MaxHp, int MaxMp, int Atk, int Def, int Critical)
 	{
 		this->MaxHp = MaxHp;
 		this->MaxMp = MaxMp;
+		
 		this->Atk = Atk;
 		this->Def = Def;
 		this->Critical = Critical;
 	}
 };
 
-class ACharacter;
-
-//데이터 덩어리
+//데이터 덩어리 - 묶음
+// 최종 데미지, 크리티컬 여부 묶어서 전달할거야~ 
 struct FDamageResult
 {
-	//공격자와 대상 포인터를 추가.
-	ACharacter* Attacker;
-	ACharacter* Target;
-
 	int Damage;
 	bool bCritical;
+	
+	ACharacter* Attacker;
+	ACharacter* Target;
+	
 	void PrintMessage(const string& AttackMessage);
 };
 
 class ACharacter
 {
 public:
-	ACharacter(const string& NewName, const FUnitStat& NewStat);
-	~ACharacter();
+	ACharacter(const string& NewName, const FUnitStat& UnitStat);
+	virtual ~ACharacter();
 
 protected:
 	string Name;
 	FUnitStat Stat;
 
 public:
-	virtual FDamageResult Attack(ACharacter* Target);
-	int TakeDamage(int DamageAmount);
-	int GetHp() { return Stat.Hp; }
-
 	const string& GetName() { return Name; }
-	bool IsDead() { return Stat.Hp <= 0; }
-
+	int GetHp() const { return Stat.Hp; }
+	int GetMaxHp() const { return Stat.MaxHp; }
+	int GetAtk() const { return Stat.Atk; }
+	int GetCritical() const { return Stat.Critical; }
+	bool IsDead() const { return Stat.Hp <= 0; }
+	
+	virtual FDamageResult Attack(ACharacter* Target);
 	virtual void UseSkill(ACharacter* Target) = 0;
-	void PrintName();
+	
+	int TakeDamage(int DamageAmount);
 	void Heal(int amount);
-	void PlayTurn(ACharacter* Target);
-
+	void PrintName();
 	void ShowStat();
-private:
+	void PlayTurn(ACharacter* Target);
 	int GetRandomInt();
 };
