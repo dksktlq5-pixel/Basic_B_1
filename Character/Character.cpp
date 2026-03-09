@@ -1,4 +1,5 @@
 #include "Character.h"
+#include "../Skill/Skill.h"
 
 #include <iostream>
 #include <random>
@@ -32,26 +33,6 @@ ACharacter::~ACharacter()
 	cout << "ACharacter 소멸됨" << endl;
 }
 
-FDamageResult ACharacter::Attack(ACharacter* Target)
-{
-	int Damage = Stat.Atk;
-
-	// - 크리티컬 계산 - 
-	bool bCritical = GetRandomInt() < Stat.Critical;
-	if (bCritical)
-	{
-		Damage = static_cast<int>(Damage * 1.5f);
-	}
-
-	int FinalDamage = Target->TakeDamage(Damage);
-	FDamageResult result;
-	result.Attacker = this;
-	result.Target = Target;
-	result.Damage = FinalDamage;
-	result.bCritical = bCritical;
-	return result;
-}
-
 int ACharacter::TakeDamage(int DamageAmount)
 {
 	DamageAmount = DamageAmount - Stat.Def;
@@ -74,11 +55,11 @@ void ACharacter::Heal(int amount)
 	cout << ActualHeal << " HP를 회복했습니다...!" << endl;
 }
 
-int ACharacter::GetRandomInt()
+int ACharacter::GetRandomInt(int Max)
 {
 	static std::random_device rd;
 	static std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> dis(0, 100);
+	std::uniform_int_distribution<int> dis(0, Max - 1);
 	return dis(gen);
 }
 
@@ -95,14 +76,3 @@ void ACharacter::ShowStat()
 	cout << " HP: " << Stat.Hp << " / " << Stat.MaxMp <<  " MP: " << Stat.Mp << " / " << Stat.MaxMp << endl;
 }
 
-void ACharacter::PlayTurn(ACharacter* Target)
-{
-	if (GetRandomInt() < 50)
-	{
-		Attack(Target);
-	}
-	else
-	{
-		UseSkill(Target);
-	}
-}
