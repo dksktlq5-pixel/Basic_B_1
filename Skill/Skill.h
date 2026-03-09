@@ -1,16 +1,18 @@
-#pragma once
+﻿#pragma once
 
 class ACharacter;
 
-//부모 클래스
+// 부모 클래스
 class USkill
 {
 public:
-	USkill(ACharacter* NewOwner);
+    USkill(ACharacter* NewOwner, int NewMpCost);  
 
 protected:
-	ACharacter* Owner = nullptr;
+    ACharacter* Owner = nullptr;
+    int MpCost;
 
 public:
-	virtual void Play(ACharacter* Target) = 0;
+    virtual void Play(ACharacter* Target) = 0;
+    int GetMpCost();
 };

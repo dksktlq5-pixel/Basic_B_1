@@ -1,4 +1,4 @@
-#include "Character.h"
+﻿#include "Character.h"
 
 #include <iostream>
 #include <random>
@@ -55,10 +55,10 @@ FDamageResult ACharacter::Attack(ACharacter* Target)
 int ACharacter::TakeDamage(int DamageAmount)
 {
 	DamageAmount = DamageAmount - Stat.Def;
-	DamageAmount = std::max(DamageAmount, 0);
+	DamageAmount = max(DamageAmount, 0);
 
 	Stat.Hp = Stat.Hp - DamageAmount;
-	Stat.Hp = std::max(Stat.Hp, 0);
+	Stat.Hp = max(Stat.Hp, 0);
 	return DamageAmount;
 }
 
@@ -66,7 +66,7 @@ void ACharacter::Heal(int amount)
 {
 	int PrevHp = Stat.Hp;
 	Stat.Hp += amount;
-	Stat.Hp = std::min(Stat.MaxHp, Stat.Hp);
+	Stat.Hp = min(Stat.MaxHp, Stat.Hp);
 
 	int ActualHeal = Stat.Hp - PrevHp;
 
@@ -76,9 +76,9 @@ void ACharacter::Heal(int amount)
 
 int ACharacter::GetRandomInt()
 {
-	static std::random_device rd;
-	static std::mt19937 gen(rd());
-	std::uniform_int_distribution<int> dis(0, 100);
+	static random_device rd;
+	static mt19937 gen(rd());
+	uniform_int_distribution<int> dis(0, 100);
 	return dis(gen);
 }
 
