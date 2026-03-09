@@ -1,4 +1,6 @@
 ﻿#pragma once
+#include <string>
+using namespace std;
 
 class ACharacter;
 
@@ -6,13 +8,15 @@ class ACharacter;
 class USkill
 {
 public:
-    USkill(ACharacter* NewOwner, int NewMpCost);  
+    USkill(ACharacter* NewOwner, int NewMpCost, const string& NewName);  
 
 protected:
     ACharacter* Owner = nullptr;
     int MpCost;
+    string Name;
 
 public:
     virtual void Play(ACharacter* Target) = 0;
     int GetMpCost();
+    const string& GetName() const;
 };

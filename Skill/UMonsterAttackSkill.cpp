@@ -1,9 +1,8 @@
 ﻿#include "UMonsterAttackSkill.h"
-
 #include "../Character/Character.h"
 
 UMonsterAttackSkill::UMonsterAttackSkill(ACharacter* NewOwner)
-    : USkill(NewOwner, 0)
+    : USkill(NewOwner, 0, "물어뜯기 공격!")
 {
     
 }

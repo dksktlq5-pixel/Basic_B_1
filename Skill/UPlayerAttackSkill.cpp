@@ -1,9 +1,8 @@
 ﻿#include "UPlayerAttackSkill.h"
 #include "../Character/Character.h"
-#include <string>
 
 UPlayerAttackSkill::UPlayerAttackSkill(ACharacter* NewOwner)
-    : USkill(NewOwner, 0)
+    : USkill(NewOwner, 0, "대검 공격!")
 {
     
 }

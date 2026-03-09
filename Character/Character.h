@@ -1,6 +1,9 @@
-#pragma once
+﻿#pragma once
 
 #include <string>
+#include <vector>
+#include <memory>
+#include "../Skill/Skill.h"
 
 class ACharacter;
 using namespace std;
@@ -53,6 +56,7 @@ public:
 protected:
 	string Name;
 	FUnitStat Stat;
+	vector<unique_ptr<USkill>> Skills;
 
 public:
 	const string& GetName() { return Name; }
@@ -62,13 +66,10 @@ public:
 	int GetCritical() const { return Stat.Critical; }
 	bool IsDead() const { return Stat.Hp <= 0; }
 	
-	virtual FDamageResult Attack(ACharacter* Target);
-	virtual void UseSkill(ACharacter* Target) = 0;
-	
 	int TakeDamage(int DamageAmount);
 	void Heal(int amount);
 	void PrintName();
 	void ShowStat();
-	void PlayTurn(ACharacter* Target);
-	int GetRandomInt();
+	virtual void PlayTurn(ACharacter* Target);
+	int GetRandomInt(int Max = 100);
 };

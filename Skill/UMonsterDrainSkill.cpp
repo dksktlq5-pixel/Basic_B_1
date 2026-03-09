@@ -1,9 +1,8 @@
 ﻿#include "UMonsterDrainSkill.h"
-
 #include "../Character/Character.h"
 
 UMonsterDrainSkill::UMonsterDrainSkill(ACharacter* NewOwner)
-    :USkill(NewOwner, 10)
+    :USkill(NewOwner, 10, "흡혈 공격!")
 {
 }
 

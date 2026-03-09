@@ -1,5 +1,4 @@
 ﻿#include "Character.h"
-
 #include <iostream>
 #include <random>
 
@@ -32,26 +31,6 @@ ACharacter::~ACharacter()
 	cout << "ACharacter 소멸됨" << endl;
 }
 
-FDamageResult ACharacter::Attack(ACharacter* Target)
-{
-	int Damage = Stat.Atk;
-
-	// - 크리티컬 계산 - 
-	bool bCritical = GetRandomInt() < Stat.Critical;
-	if (bCritical)
-	{
-		Damage = static_cast<int>(Damage * 1.5f);
-	}
-
-	int FinalDamage = Target->TakeDamage(Damage);
-	FDamageResult result;
-	result.Attacker = this;
-	result.Target = Target;
-	result.Damage = FinalDamage;
-	result.bCritical = bCritical;
-	return result;
-}
-
 int ACharacter::TakeDamage(int DamageAmount)
 {
 	DamageAmount = DamageAmount - Stat.Def;
@@ -74,11 +53,11 @@ void ACharacter::Heal(int amount)
 	cout << ActualHeal << " HP를 회복했습니다...!" << endl;
 }
 
-int ACharacter::GetRandomInt()
+int ACharacter::GetRandomInt(int Max)
 {
 	static random_device rd;
 	static mt19937 gen(rd());
-	uniform_int_distribution<int> dis(0, 100);
+	uniform_int_distribution<int> dis(0, Max -1);
 	return dis(gen);
 }
 
@@ -92,17 +71,28 @@ void ACharacter::ShowStat()
 	cout << "[System] ";
 	PrintName();
 	
-	cout << " HP: " << Stat.Hp << " / " << Stat.MaxMp <<  " MP: " << Stat.Mp << " / " << Stat.MaxMp << endl;
+	cout << " HP: " << Stat.Hp << " / " << Stat.MaxHp <<  " MP: " << Stat.Mp << " / " << Stat.MaxMp << endl;
 }
 
 void ACharacter::PlayTurn(ACharacter* Target)
 {
-	if (GetRandomInt() < 50)
+	cout << "=== 스킬 목록 ===" << endl;
+	for (int i = 0; i < Skills.size(); i++)
 	{
-		Attack(Target);
+		cout << i + 1 << ". " << Skills[i]->GetName() << endl;
 	}
-	else
+
+	int choice = 0;
+	while (choice < 1 || choice > Skills.size())
 	{
-		UseSkill(Target);
+		cout << "스킬을 선택하세요: ";
+		cin >> choice;
+
+		if (choice < 1 || choice > Skills.size())
+		{
+			cout << "잘못된 입력입니다!" << endl;
+		}
 	}
+
+	Skills[choice - 1]->Play(Target);
 }
