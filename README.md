@@ -1,2 +1,0 @@
-# CH2_TeamProject
-
