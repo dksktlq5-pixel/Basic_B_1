@@ -31,6 +31,19 @@ ACharacter::~ACharacter()
 	cout << "ACharacter 소멸됨" << endl;
 }
 
+bool ACharacter::HasEnoughMp(int Cost)
+{
+	return Stat.Mp >= Cost;
+}
+
+void ACharacter::ConsumeMp(int Cost)
+{
+	Stat.Mp -= Cost;
+	if (Stat.Mp < 0)
+		Stat.Mp = 0;
+	// Stat.Mp = max(Stat.Mp - Cost, 0);
+}
+
 int ACharacter::TakeDamage(int DamageAmount)
 {
 	DamageAmount = DamageAmount - Stat.Def;
@@ -72,27 +85,4 @@ void ACharacter::ShowStat()
 	PrintName();
 	
 	cout << " HP: " << Stat.Hp << " / " << Stat.MaxHp <<  " MP: " << Stat.Mp << " / " << Stat.MaxMp << endl;
-}
-
-void ACharacter::PlayTurn(ACharacter* Target)
-{
-	cout << "=== 스킬 목록 ===" << endl;
-	for (int i = 0; i < Skills.size(); i++)
-	{
-		cout << i + 1 << ". " << Skills[i]->GetName() << endl;
-	}
-
-	int choice = 0;
-	while (choice < 1 || choice > Skills.size())
-	{
-		cout << "스킬을 선택하세요: ";
-		cin >> choice;
-
-		if (choice < 1 || choice > Skills.size())
-		{
-			cout << "잘못된 입력입니다!" << endl;
-		}
-	}
-
-	Skills[choice - 1]->Play(Target);
 }

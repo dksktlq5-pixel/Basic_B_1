@@ -7,7 +7,7 @@ UPlayerAttackSkill::UPlayerAttackSkill(ACharacter* NewOwner)
     
 }
 
-void UPlayerAttackSkill::Play(ACharacter* Target)
+void UPlayerAttackSkill::OnPlay(ACharacter* Target)
 {
     int Damage = Owner->GetAtk();
 

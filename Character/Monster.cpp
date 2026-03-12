@@ -17,6 +17,19 @@ AMonster::~AMonster()
  
 void AMonster::PlayTurn(ACharacter* Target)
 {
-	int index = GetRandomInt(Skills.size());
-	Skills[index]->Play(Target);
+	vector<USkill*> UsableSkills;
+	for (auto& skill : Skills)
+	{
+		if (skill->CanUse())
+		{
+			UsableSkills.push_back(skill.get());
+		}
+	}
+	if (UsableSkills.empty())
+	{
+		cout << "행동불가!" << endl;
+		return;
+	}
+	int index = GetRandomInt(static_cast<int>(UsableSkills.size()));
+	UsableSkills[index]->Play(Target);
 }

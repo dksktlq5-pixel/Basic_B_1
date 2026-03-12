@@ -14,9 +14,11 @@ protected:
     ACharacter* Owner = nullptr;
     int MpCost;
     string Name;
+    virtual void OnPlay(ACharacter* Target) = 0;
 
 public:
-    virtual void Play(ACharacter* Target) = 0;
+    void Play(ACharacter* Target);
     int GetMpCost();
     const string& GetName() const;
+    bool CanUse();
 };

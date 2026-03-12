@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "Character.h"
 
-
 class APlayer : public ACharacter
 {
 public:
@@ -15,4 +14,5 @@ protected:
 public:
 	void LevelUp();
 	void UseItem();
+	void PlayTurn(ACharacter* Target) override;
 };

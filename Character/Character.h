@@ -65,11 +65,13 @@ public:
 	int GetAtk() const { return Stat.Atk; }
 	int GetCritical() const { return Stat.Critical; }
 	bool IsDead() const { return Stat.Hp <= 0; }
+	bool HasEnoughMp(int Cost);
+	void ConsumeMp(int Cost);
 	
 	int TakeDamage(int DamageAmount);
 	void Heal(int amount);
 	void PrintName();
 	void ShowStat();
-	virtual void PlayTurn(ACharacter* Target);
+	virtual void PlayTurn(ACharacter* Target) = 0;
 	int GetRandomInt(int Max = 100);
 };

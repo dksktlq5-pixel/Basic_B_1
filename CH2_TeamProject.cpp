@@ -13,7 +13,7 @@ int main()
 	auto BattleManager = make_unique<ABattleManager>();
 
 	FUnitStat PlayerStat(200, 50, 30, 5, 10);
-	FUnitStat MonsterStat(100, 30, 20, 3, 10);
+	FUnitStat MonsterStat(300, 30, 20, 3, 10);
 
 	unique_ptr<ACharacter> Player = make_unique<APlayer>("용사", PlayerStat);
 	unique_ptr<ACharacter> Monster = make_unique<AMonster>("몬스터", MonsterStat);
